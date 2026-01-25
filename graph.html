@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>グラフ生成</title>
+
+    <style>
+        #graph {
+            display: flex;
+        }
+
+        #manual p {
+            margin: 2px;
+        }
+
+        #question {
+            margin-top: 20px;
+        }
+
+        h1 {
+            padding-bottom: 15px;
+        }
+
+        #manual h2 {
+            margin-bottom: 2px;
+        }
+
+        #question div {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>グラフ生成</h1>
+
+    <div id="manual">
+        <h2>説明</h2>
+        <p>これは、グラフを自動生成するプログラムです。</p>
+        <p>一番上の棒グラフと書かれているところでどのグラフを作るか選択できます。</p>
+        <p>その下にある要素を追加ボタンでグラフに入れる要素を追加します。</p>
+        <p>一番最後の要素を削除ボタンを押すと一番最後に追加した要素を削除できます。</p>
+        <p>グラフを作成ボタンを押すと、指示した通りのグラフが作れます。</p>
+    </div>
+
+    <div id="question">
+        <select id="graphType">
+            <option value="bar">棒グラフ</option>
+            <option value="band">帯グラフ</option>
+        </select>
+    </div>
+
+    <button id="addElement">要素を追加</button>
+    <button id="removeElement">一番最後の要素を削除</button>
+    <button id="makeGraph">グラフを作成</button>
+
+    <div id="graph"></div>
+
+    <script>
+        // グラフの要素の数
+        let numberOfElement = 0;
+
+        // グラフに入れる要素を作るinput要素を追加する
+        function addElement() {
+            numberOfElement++;
+
+            let elementsDiv = document.createElement("div");
+            elementsDiv.style = "margin-bottom:0px;";
+            elementsDiv.id = numberOfElement + "elementsDiv";
+
+            let elementsNumberDiv = document.createElement("div");
+            elementsNumberDiv.style = "margin-bottom:50px;";
+            elementsNumberDiv.id = numberOfElement + "elementsNumberDiv";
+
+            let elementLabel = document.createElement("h4");
+            elementLabel.textContent = numberOfElement + "つ目の要素の名前";
+            elementLabel.id = numberOfElement + "Label";
+            let element = document.createElement("input");
+            element.type = "text";
+            element.id = numberOfElement;
+
+            let elementNumberLabel = document.createElement("h4");
+            elementNumberLabel.textContent = numberOfElement + "つ目の要素の数字";
+            elementNumberLabel.id = numberOfElement + "NumberLabel";
+            let elementNumber = document.createElement("input");
+            elementNumber.type = "number";
+            elementNumber.id = numberOfElement + "Number";
+
+            document.getElementById("question").appendChild(elementsDiv);
+            elementsDiv.appendChild(elementLabel);
+            elementsDiv.appendChild(element);
+
+            document.getElementById("question").appendChild(elementsNumberDiv);
+            elementsNumberDiv.appendChild(elementNumberLabel);
+            elementsNumberDiv.appendChild(elementNumber);
+        }
+        document.getElementById("addElement").addEventListener("click", addElement);
+
+        // グラフを作成
+        function makeGraph() {
+            let graph = document.getElementById("graph");
+            graph.innerHTML = "";
+
+            // グラフの要素の数字を合計する
+            let sumOfElements = 0;
+            for (let i = 1; i < numberOfElement + 1; i++) {
+                sumOfElements += Number(document.getElementById(i + "Number").value);
+            }
+
+            // 棒グラフ
+            if (document.getElementById("graphType").value == "bar") {
+                for (let i = 1; i < numberOfElement + 1; i++) {
+                    let graphElement = document.createElement("div");
+                    graphElement.style = `width:${50 / numberOfElement}px;height:${document.getElementById(i + "Number").value / sumOfElements * 500}px;border:1px solid black;background-color:black;`;
+                    graph.appendChild(graphElement);
+                }
+                graph.style = "display:flex;justify-content:space-between;";
+                graph.style = "width:1000px;height:500px;margin-top:20px;border:1px solid black;display:flex;justify-content:space-around;align-items: flex-end;";
+            }
+            // 帯グラフ
+            else if (document.getElementById("graphType").value == "band") {
+                graph.style = "width:1000px;height:100px;margin-top:20px;border:1px solid black;";
+
+                for (let i = 1; i < numberOfElement + 1; i++) {
+                    let graphElement = document.createElement("div");
+                    graphElement.style = "width:" + document.getElementById(i + "Number").value / sumOfElements * 1000 + "px;height:100px;border:1px solid black;display:flex;justify-content:center;align-items:center;";
+                    graph.appendChild(graphElement);
+                    let graphElementText = document.createElement("p");
+                    graphElementText.textContent = document.getElementById(i).value;
+                    graphElement.appendChild(graphElementText);
+                }
+            }
+        }
+        document.getElementById("makeGraph").addEventListener("click", makeGraph);
+
+        function removeElement() {
+            document.getElementById(numberOfElement + "elementsDiv").remove();
+            document.getElementById(numberOfElement + "elementsNumberDiv").remove();
+            numberOfElement--;
+        }
+        document.getElementById("removeElement").addEventListener("click", removeElement);
+    </script>
+</body>
+
+</html>
