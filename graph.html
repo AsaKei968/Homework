@@ -55,6 +55,7 @@
     <button id="makeGraph">グラフを作成</button>
 
     <div id="graph"></div>
+    <div id="elementNum"></div>
 
     <script>
         // グラフの要素の数
@@ -99,7 +100,9 @@
         // グラフを作成
         function makeGraph() {
             let graph = document.getElementById("graph");
+            let elementNum = document.getElementById("elementNum");
             graph.innerHTML = "";
+            elementNum.innerHTML = "";
 
             // グラフの要素の数字を合計する
             let sumOfElements = 0;
@@ -112,6 +115,10 @@
                 for (let i = 1; i < numberOfElement + 1; i++) {
                     let graphElement = document.createElement("div");
                     graphElement.style = `width:${50 / numberOfElement}px;height:${document.getElementById(i + "Number").value / sumOfElements * 500}px;border:1px solid black;background-color:black;`;
+                    let graphNumElement = document.createElement("p");
+                    graphNumElement.textContent = document.getElementById(i).value;
+                    elementNum.style = "width:1000px;display:flex;justify-content:space-around;";
+                    elementNum.appendChild(graphNumElement);
                     graph.appendChild(graphElement);
                 }
                 graph.style = "display:flex;justify-content:space-between;";
@@ -123,7 +130,7 @@
 
                 for (let i = 1; i < numberOfElement + 1; i++) {
                     let graphElement = document.createElement("div");
-                    graphElement.style = "width:" + document.getElementById(i + "Number").value / sumOfElements * 1000 + "px;height:100px;border:1px solid black;display:flex;justify-content:center;align-items:center;";
+                    graphElement.style = `width:${document.getElementById(i + "Number").value / sumOfElements * 1000}px;height:100px;border:1px solid black;display:flex;justify-content:center;align-items:center;`;
                     graph.appendChild(graphElement);
                     let graphElementText = document.createElement("p");
                     graphElementText.textContent = document.getElementById(i).value;
