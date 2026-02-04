@@ -50,102 +50,145 @@
         </select>
     </div>
 
-    <button id="addElement">要素を追加</button>
-    <button id="removeElement">一番最後の要素を削除</button>
+    <button id="addelem">要素を追加</button>
+    <button id="removeelem">一番最後の要素を削除</button>
     <button id="makeGraph">グラフを作成</button>
 
     <div id="graph"></div>
-    <div id="elementNum"></div>
+    <div id="elemName"></div>
 
     <script>
         // グラフの要素の数
-        let numberOfElement = 0;
+        let numOfElem = 0;
+        // グラフの要素につけられる色の種類
+        let elemColor = [["赤", "red"], ["緑", "green"], ["青", "blue"]];
 
         // グラフに入れる要素を作るinput要素を追加する
-        function addElement() {
-            numberOfElement++;
+        function addelem() {
+            numOfElem++;
 
-            let elementsDiv = document.createElement("div");
-            elementsDiv.style = "margin-bottom:0px;";
-            elementsDiv.id = numberOfElement + "elementsDiv";
+            // グラフの内容の名前のところ
+            let elemDiv = document.createElement("div");
+            elemDiv.style = "margin-bottom:0px;";
+            elemDiv.id = numOfElem + "elemDiv";
+            // グラフの内容の名前のところのラベル
+            let elemLabel = document.createElement("h4");
+            elemLabel.textContent = numOfElem + "つ目の要素の名前";
+            elemLabel.id = numOfElem + "Label";
+            // グラフの内容の名前のところのinput
+            let elem = document.createElement("input");
+            elem.type = "text";
+            elem.id = numOfElem;
 
-            let elementsNumberDiv = document.createElement("div");
-            elementsNumberDiv.style = "margin-bottom:50px;";
-            elementsNumberDiv.id = numberOfElement + "elementsNumberDiv";
+            // グラフの内容の数字のところ
+            let elemNumberDiv = document.createElement("div");
+            elemNumberDiv.style = "margin-bottom:0px;";
+            elemNumberDiv.id = numOfElem + "elemNumberDiv";
+            // グラフの内容の数字のところのラベル
+            let elemNumberLabel = document.createElement("h4");
+            elemNumberLabel.textContent = numOfElem + "つ目の要素の数字";
+            elemNumberLabel.id = numOfElem + "NumberLabel";
+            // グラフの内容の数字のところのinput
+            let elemNumber = document.createElement("input");
+            elemNumber.type = "number";
+            elemNumber.id = numOfElem + "Number";
 
-            let elementLabel = document.createElement("h4");
-            elementLabel.textContent = numberOfElement + "つ目の要素の名前";
-            elementLabel.id = numberOfElement + "Label";
-            let element = document.createElement("input");
-            element.type = "text";
-            element.id = numberOfElement;
+            // グラフの内容の色のところ
+            let elemColorDiv = document.createElement("div");
+            elemColorDiv.style = "margin-bottom:50px;";
+            elemColorDiv.id = numOfElem + "elemColorDiv";
+            // グラフの内容の色のところのラベル
+            let elemColorLabel = document.createElement("h4");
+            elemColorLabel.textContent = numOfElem + "つ目の要素の色";
+            elemColorLabel.id = numOfElem + "ColorLabel";
+            // グラフの内容の色のところのselect
+            let elemColorSelect = document.createElement("select");
+            elemColorSelect.id = numOfElem + "Color";
+            elemColor.forEach(function(color){
+                let option = document.createElement("option");
+                option.value = color[1];
+                option.textContent = color[0];
+                elemColorSelect.appendChild(option);
+            });
 
-            let elementNumberLabel = document.createElement("h4");
-            elementNumberLabel.textContent = numberOfElement + "つ目の要素の数字";
-            elementNumberLabel.id = numberOfElement + "NumberLabel";
-            let elementNumber = document.createElement("input");
-            elementNumber.type = "number";
-            elementNumber.id = numberOfElement + "Number";
+            // グラフの内容の名前のところを加える
+            document.getElementById("question").appendChild(elemDiv);
+            elemDiv.appendChild(elemLabel);
+            elemDiv.appendChild(elem);
 
-            document.getElementById("question").appendChild(elementsDiv);
-            elementsDiv.appendChild(elementLabel);
-            elementsDiv.appendChild(element);
+            // グラフの内容の数字のところを加える
+            document.getElementById("question").appendChild(elemNumberDiv);
+            elemNumberDiv.appendChild(elemNumberLabel);
+            elemNumberDiv.appendChild(elemNumber);
 
-            document.getElementById("question").appendChild(elementsNumberDiv);
-            elementsNumberDiv.appendChild(elementNumberLabel);
-            elementsNumberDiv.appendChild(elementNumber);
+            // グラフの内容の色のところを加える
+            document.getElementById("question").appendChild(elemColorDiv);
+            elemColorDiv.appendChild(elemColorLabel);
+            elemColorDiv.appendChild(elemColorSelect);
         }
-        document.getElementById("addElement").addEventListener("click", addElement);
+        document.getElementById("addelem").addEventListener("click", addelem);
 
         // グラフを作成
         function makeGraph() {
             let graph = document.getElementById("graph");
-            let elementNum = document.getElementById("elementNum");
+            let elemName = document.getElementById("elemName");
             graph.innerHTML = "";
-            elementNum.innerHTML = "";
+            elemName.innerHTML = "";
 
             // グラフの要素の数字を合計する
-            let sumOfElements = 0;
-            for (let i = 1; i < numberOfElement + 1; i++) {
-                sumOfElements += Number(document.getElementById(i + "Number").value);
+            let sumOfelem = 0;
+            for (let i = 1; i < numOfElem + 1; i++) {
+                sumOfelem += Number(document.getElementById(i + "Number").value);
             }
 
             // 棒グラフ
             if (document.getElementById("graphType").value == "bar") {
-                for (let i = 1; i < numberOfElement + 1; i++) {
-                    let graphElement = document.createElement("div");
-                    graphElement.style = `width:${50 / numberOfElement}px;height:${document.getElementById(i + "Number").value / sumOfElements * 500}px;border:1px solid black;background-color:black;`;
-                    let graphNumElement = document.createElement("p");
-                    graphNumElement.textContent = document.getElementById(i).value;
-                    elementNum.style = "width:1000px;display:flex;justify-content:space-around;";
-                    elementNum.appendChild(graphNumElement);
-                    graph.appendChild(graphElement);
-                }
-                graph.style = "display:flex;justify-content:space-between;";
+                // グラフのstyle
                 graph.style = "width:1000px;height:500px;margin-top:20px;border:1px solid black;display:flex;justify-content:space-around;align-items: flex-end;";
+
+                for (let i = 1; i < numOfElem + 1; i++) {
+                    let color = document.getElementById(`${i}Color`).value;
+                    let width = graph.offsetWidth / numOfElem / 20;
+                    let height = document.getElementById(`${i}Number`).value / sumOfelem * graph.offsetWidth / 2;
+                    // グラフの要素
+                    let graphelem = document.createElement("div");
+                    graphelem.style = `width:${width}px;height:${height}px;border:1px solid black;background-color:${color};`;
+
+                    // それぞれのグラフの要素の名前
+                    let graphNameelem = document.createElement("p");
+                    graphNameelem.textContent = document.getElementById(i).value;
+                    // elemNameとはそれぞれのグラフの要素の名前がたくさん入ったdiv要素のこと
+                    elemName.style = "width:1000px;display:flex;justify-content:space-around;";
+
+                    // グラフとelemNameに子要素を加える
+                    elemName.appendChild(graphNameelem);
+                    graph.appendChild(graphelem);
+                }
             }
             // 帯グラフ
             else if (document.getElementById("graphType").value == "band") {
                 graph.style = "width:1000px;height:100px;margin-top:20px;border:1px solid black;";
 
-                for (let i = 1; i < numberOfElement + 1; i++) {
-                    let graphElement = document.createElement("div");
-                    graphElement.style = `width:${document.getElementById(i + "Number").value / sumOfElements * 1000}px;height:100px;border:1px solid black;display:flex;justify-content:center;align-items:center;`;
-                    graph.appendChild(graphElement);
-                    let graphElementText = document.createElement("p");
-                    graphElementText.textContent = document.getElementById(i).value;
-                    graphElement.appendChild(graphElementText);
+                for (let i = 1; i < numOfElem + 1; i++) {
+                    let color = document.getElementById(`${i}Color`).value;
+                    let width = document.getElementById(`${i}Number`).value / sumOfelem * graph.offsetWidth;
+                    let graphelem = document.createElement("div");
+                    graphelem.style = `width:${width}px;height:100px;border:1px solid black;display:flex;justify-content:center;align-items:center;background-color:${color}`;
+                    graph.appendChild(graphelem);
+                    let graphelemText = document.createElement("p");
+                    graphelemText.textContent = document.getElementById(i).value;
+                    graphelem.appendChild(graphelemText);
                 }
             }
         }
         document.getElementById("makeGraph").addEventListener("click", makeGraph);
 
-        function removeElement() {
-            document.getElementById(numberOfElement + "elementsDiv").remove();
-            document.getElementById(numberOfElement + "elementsNumberDiv").remove();
-            numberOfElement--;
+        function removeelem() {
+            document.getElementById(numOfElem + "elemDiv").remove();
+            document.getElementById(numOfElem + "elemNumberDiv").remove();
+            numOfElem--;
         }
-        document.getElementById("removeElement").addEventListener("click", removeElement);
+        document.getElementById("removeelem").addEventListener("click", removeelem);
     </script>
 </body>
 
