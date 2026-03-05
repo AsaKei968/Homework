@@ -1,13 +1,78 @@
-<style>
-    h1 {
-        margin-left: 20px;
-    }
-</style>
+<!DOCTYPE html>
 
-<title>自主学習</title>
+<head>
+    <style>
+        header {
+            display: flex;
+            align-items: center;
+        }
 
-<h1>宿題</h1>
-<ul>
-    <li><a href="https://asakei968.github.io/Homework/hyakumasu.html" target="_blank">百ます計算（かけ算）</a></li>
-    <li><a href="https://asakei968.github.io/Homework/graph.html" target="_blank">グラフ生成</a></li>
-</ul>
+        main {
+            display: flex;
+            width: 80%;
+            justify-content: center;
+        }
+
+        h1 {
+            margin-left: 20px;
+        }
+
+        div {
+            width: 100px;
+            display: flex;
+            justify-content: center;
+            border: 0.3px solid #d3d3d3;
+            cursor: pointer;
+        }
+
+        #headerMostLeft {
+            margin-left: auto;
+        }
+
+        #headerMostRight {
+            margin-right: 80px;
+        }
+
+        div:not(#headerMostLeft) {
+            margin-left: 40px;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        li:not(#listsLabel) {
+            margin-bottom: 20px;
+            font-size: 50px;
+        }
+    </style>
+    <title>自主学習</title>
+</head>
+
+<body>
+    <header style="border-bottom: 0.5px solid gray;">
+        <h1>宿題</h1>
+        <div id="headerMostLeft" onclick="window.open('https://asakei968.github.io/Homework/', '_blank')">
+            <h2><a>ホーム</a></h2>
+        </div>
+        <div>
+            <h2><a>説明</a></h2>
+        </div>
+        <div>
+            <h2><a>情報</a></h2>
+        </div>
+        <div id="headerMostRight">
+            <h2><a>その他</a></h2>
+        </div>
+    </header>
+
+    <main>
+        <ul>
+            <li id="listsLabel">
+                <h1>自主勉サイト一覧</h1>
+            </li>
+            <li><a href="https://asakei968.github.io/Homework/hyakumasu.html" target="_blank">百ます計算（かけ算）</a></li>
+            <li><a href="https://asakei968.github.io/Homework/graph.html" target="_blank">グラフ生成</a></li>
+        </ul>
+    </main>
+</body>
