@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 
 <head>
     <style>
@@ -33,29 +34,19 @@
             margin-left: 40px;
         }
 
-        /*main*/
+        /* main */
         main {
-            display: flex;
-            justify-content: center;
-        }
-
-        ul {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        li {
-            list-style: none;
+        .title {
+            margin: 20px 0px 0px 0px;
         }
 
-        li:not(#listsLabel) {
-            font-size: 50px;
-        }
-
-        #listsLabel {
-            margin: 0px;
-            margin-bottom: 20px;
+        .explanation {
+            width: 500px;
         }
     </style>
     <title>自主学習</title>
@@ -80,12 +71,25 @@
     </header>
 
     <main>
-        <ul>
-            <li id="listsLabel">
-                <h1 style="margin:0px;">自主勉サイト一覧</h1>
-            </li>
-            <li><a href="https://asakei968.github.io/Homework/hyakumasu.html" target="_blank">百ます計算（かけ算）</a></li>
-            <li><a href="https://asakei968.github.io/Homework/graph.html" target="_blank">グラフ生成</a></li>
-        </ul>
+        <h2 class="title">このサイトの説明<br></h2>
+        <p class="explanation">
+            自主学習のために作ったサイトをまとめました。<br>
+            ホームと書かれているところでサイトのリンク集のページに行けます。<br>
+        </p>
+        <h2 class="title">百ます計算の説明</h2>
+        <p class="explanation">
+            百ます計算を作りました。<br>
+            詳しくはサイトを見ればわかります。<br>
+            ルールは「百ます計算 ルール」のように検索すれば出てきます。
+        </p>
+        <h2 class="title">
+            グラフ生成の説明
+        </h2>
+        <p class="explanation">
+            グラフ生成サイトを作りました。<br>
+            詳しくはサイトを見ればわかります。
+        </p>
     </main>
 </body>
+
+</html>
