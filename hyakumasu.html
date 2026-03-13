@@ -4,6 +4,40 @@
 <head>
     <title>百ます計算</title>
     <style>
+        /* header */
+        header {
+            display: flex;
+            align-items: center;
+            border-bottom: 0.5px solid gray;
+        }
+
+        #title {
+            margin-left: 20px;
+        }
+
+        .headers {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #headerMostLeft {
+            margin-left: auto;
+        }
+
+        #headerMostRight {
+            margin-right: 80px;
+        }
+
+        div.headers:not(#headerMostLeft) {
+            margin-left: 40px;
+        }
+
+        main {
+            display: flex;
+        }
+
         td {
             border: 1px solid black;
             width: 50px;
@@ -20,7 +54,16 @@
         }
 
         #setsumei {
+            margin: 20px 0px 10px 20px;
             margin-bottom: 10px;
+        }
+
+        #setsumei h2 {
+            font-size: 40px;
+        }
+
+        #setsumei p {
+            font-size: 20px;
         }
 
         input {
@@ -31,65 +74,75 @@
         }
 
         #time {
-            padding: 250px 200px;
+            width: 500px;
+            padding: 250px 0px 250px 200px;
+            font-size: 75px;
         }
 
-        main {
+        #right {
             display: flex;
+            flex-direction: column;
         }
 
         button,
         select {
             margin-right: 50px;
-            font-size: 50px;
+            font-size: 30px;
         }
     </style>
 </head>
 
 <body onload="make()">
-    <!--説明-->
-    <div id="setsumei">
-        <h2>説明</h2>
-        <p>これは百ます計算（かけ算）です。</p>
-        <p>整数(1桁) × 整数(1桁)というところを押すと百ます計算のモードを選べます。</p>
-        <p>"スタート"ボタンを押すとタイマーが始まります。</p>
-        <p>"答え合わせ"ボタンを押すと答えが表示され、タイマーがストップします。</p>
-        <p style="border-bottom: solid 2px red;width:fit-content">答えを表示したときの<span
-                style="color:blue;">青い文字</span>は正解、<span style="color:red;">赤い文字</span>は不正解です。</p>
-        <p>作成ボタンを押すと、新しい問題が出ます。</p>
-    </div>
-
-    <div>
-        <select id="type">
-            <option value="int">整数(1桁) × 整数(1桁)</option>
-            <option value="float">小数(0.5区切り) × 整数(1桁)</option>
-        </select>
-    </div>
-
-    <button id="make">作成</button>
+    <header>
+        <h1 id="title">百ます計算</h1>
+        <div id="headerMostLeft" class="headers" style="width: 400px;">
+            <select id="type">
+                <option value="int">整数(1桁) × 整数(1桁)</option>
+                <option value="float">小数(0.5区切り) × 整数(1桁)</option>
+            </select>
+        </div>
+        <div id="headerMostRight" class="headers">
+            <button id="make" style="width: 100px;">作成</button>
+        </div>
+    </header>
 
     <main>
-        <!--百ます計算の表-->
-        <table id="hyakumasu"></table>
-        <h1 id="time"></h1>
-    </main>
+        <div id="left">
+            <!--説明-->
+            <div id="setsumei">
+                <h2>説明</h2>
+                <p>これは百ます計算（かけ算）です。</p>
+                <p>整数(1桁) × 整数(1桁)というところを押すと百ます計算のモードを選べます。</p>
+                <p>"スタート"ボタンを押すとタイマーが始まります。</p>
+                <p>"答え合わせ"ボタンを押すと答えが表示され、タイマーがストップします。</p>
+                <p style="border-bottom: solid 2px red;width:fit-content;">答えを表示したときの<span
+                        style="color:blue;">青い文字</span>は正解、<span style="color:red;">赤い文字</span>は不正解です。</p>
+                <p>作成ボタンを押すと、新しい問題が出ます。</p>
+            </div>
+            <h1 id="time"></h1>
+        </div>
 
-    <div>
-        <button id="start">スタート</button>
-        <button id="kotae">答え合わせ</button>
-    </div>
+        <div id="right">
+            <div>
+                <button id="start">スタート</button>
+                <button id="kotae">答え合わせ</button>
+            </div>
+            <!--百ます計算の表-->
+            <table id="hyakumasu"></table>
+        </div>
+    </main>
 
     <!--script-->
     <script>
         // table
         const table = document.getElementById("hyakumasu");
 
+        let nowFocus = "11";
+
         let time = 0;
         let sec = 0;
         let min = 0;
         let hour = 0;
-        let day = 0;
-        let week = 0;
         let timer;
         let timerAlready = false;
         const timeElement = document.getElementById("time");
@@ -101,14 +154,8 @@
 
             for (let x = 0; x < 11; x++) {
                 const td = document.createElement("td");
-                td.id = `${x}${y}`;
+                td.id = `${reverse(x)}${reverse(y)}`;
                 tr.appendChild(td);
-
-                if (x > 0 && y > 0) {
-                    const input = document.createElement("input");
-                    input.type = "text";
-                    td.appendChild(input);
-                }
             }
         }
 
@@ -117,10 +164,11 @@
         function make() {
             for (let y = 1; y < 11; y++) {
                 for (let x = 1; x < 11; x++) {
-                    document.getElementById(`${y}${x}`).textContent = "";
+                    document.getElementById(`${reverse(x)}${reverse(y)}`).textContent = "";
                     const input = document.createElement("input");
                     input.type = "text";
-                    document.getElementById(`${y}${x}`).appendChild(input);
+                    input.onclick = function () { nowFocus = this.parentElement.id; }
+                    document.getElementById(`${reverse(x)}${reverse(y)}`).appendChild(input);
                 }
             }
 
@@ -140,7 +188,7 @@
                         break;
                     }
                 }
-                document.getElementById(`${i}0`).textContent = random;
+                document.getElementById(`${reverse(i)}0`).textContent = random;
             }
 
             let leftRandomNums = [];
@@ -154,7 +202,7 @@
                         break;
                     }
                 }
-                document.getElementById(`0${i}`).textContent = random;
+                document.getElementById(`0${reverse(i)}`).textContent = random;
             }
 
             function originalNum(topOrLeft) {
@@ -171,10 +219,10 @@
         function showKotae() {
             for (let y = 1; y < 11; y++) {
                 for (let x = 1; x < 11; x++) {
-                    const target = document.getElementById(`${x}${y}`);
+                    const target = document.getElementById(`${reverse(x)}${reverse(y)}`);
 
-                    const top = Number(document.getElementById(`${x}0`).textContent);
-                    const left = Number(document.getElementById(`0${y}`).textContent);
+                    const top = Number(document.getElementById(`${reverse(x)}0`).textContent);
+                    const left = Number(document.getElementById(`0${reverse(y)}`).textContent);
 
                     if (target.firstElementChild.value != "" && Number(target.firstElementChild.value) == top * left) {
                         target.style = "color:blue;font-size: 30px;";
@@ -200,13 +248,7 @@
             if (min >= 60)
                 min = 0;
             hour = Math.floor(time % 86400 / 3600);
-            if (hour >= 60)
-                hour = 0;
-            day = Math.floor(time % 611200 / 86400);
-            if (day >= 60)
-                day = 0;
-            week = Math.floor(time / 611200);
-            timeElement.textContent = `${week}week：${day}day：${hour}：${min}：${sec.toFixed(1)}`;
+            timeElement.textContent = `${hour}：${min}：${sec.toFixed(1)}`;
         }
 
         document.getElementById("start").addEventListener("click", function () {
@@ -215,6 +257,45 @@
                 timerAlready = true;
             }
         })
+
+        function keyDown(event) {
+            switch (event.key) {
+                case 'ArrowUp':
+                    if (nowFocus[1] != 1)
+                        nowFocus = `${nowFocus[0]}${reverse(conversion(nowFocus[1]) - 1)}`;
+                    document.getElementById(nowFocus).firstElementChild.focus();
+                    break;
+                case 'ArrowDown':
+                    nowFocus = `${nowFocus[0]}${reverse(conversion(nowFocus[1]) + 1)}`;
+                    document.getElementById(nowFocus).firstElementChild.focus();
+                    break;
+                case 'ArrowLeft':
+                    if (nowFocus[0] != 1)
+                        nowFocus = `${reverse(conversion(nowFocus[0]) - 1)}${nowFocus[1]}`;
+                    document.getElementById(nowFocus).firstElementChild.focus();
+                    break;
+                case 'ArrowRight':
+                    nowFocus = `${reverse(conversion(nowFocus[0]) + 1)}${nowFocus[1]}`;
+                    document.getElementById(nowFocus).firstElementChild.focus();
+                    break;
+            }
+        }
+        window.addEventListener('keydown', keyDown);
+
+        function conversion(num) {
+            let result = Number(num);
+            if (isNaN(result)) {
+                result = 10;
+            }
+            return result;
+        }
+
+        function reverse(num) {
+            if (num >= 10) {
+                return "A";
+            }
+            return num;
+        }
     </script>
 </body>
 
