@@ -9,7 +9,7 @@
             border-bottom: 0.5px solid gray;
         }
 
-        #title {
+        .title {
             margin-left: 20px;
         }
 
@@ -19,6 +19,11 @@
             justify-content: center;
             border: 0.3px solid #d3d3d3;
             cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .headers:hover {
+            background-color: #d3d3d3;
         }
 
         #headerMostLeft {
@@ -34,12 +39,20 @@
         }
 
         /*main*/
+        #heading {
+            font-size: 60px;
+            padding-left: 10px;
+            border-left: 10px solid red;
+            margin: 10px 0px 0px 20px;
+        }
+
         main {
             display: flex;
             justify-content: center;
         }
 
         ul {
+            margin-top: 0px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -47,6 +60,7 @@
 
         li {
             list-style: none;
+            margin-top: 5px;
         }
 
         li:not(#listsLabel) {
@@ -57,13 +71,22 @@
             margin: 0px;
             margin-bottom: 20px;
         }
+
+        a {
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        a:hover {
+            background-color: #d3d3d3;
+        }
     </style>
     <title>自主学習</title>
 </head>
 
 <body>
     <header>
-        <h1 id="title">学校の自主学習</h1>
+        <h1 class="title">学校の自主学習</h1>
         <div id="headerMostLeft" class="headers" onclick="location.href = 'https://asakei968.github.io/Homework/'">
             <h2><a>ホーム</a></h2>
         </div>
@@ -78,6 +101,8 @@
             <h2><a>その他</a></h2>
         </div>
     </header>
+
+    <h1 class="title" id="heading">ホーム</h1>
 
     <main>
         <ul>
