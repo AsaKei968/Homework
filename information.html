@@ -38,13 +38,21 @@
         div.headers:not(#headerMostLeft) {
             margin-left: 40px;
         }
+
+        /* main */
+        #heading {
+            font-size: 60px;
+            padding-left: 10px;
+            border-left: 10px solid red;
+            margin: 10px 0px 0px 20px;
+        }
     </style>
     <title>情報</title>
 </head>
 
 <body>
     <header>
-        <h1 id="title">学校の自主学習</h1>
+        <h1 class="title">学校の自主学習</h1>
         <div id="headerMostLeft" class="headers" onclick="location.href = 'https://asakei968.github.io/Homework/'">
             <h2><a>ホーム</a></h2>
         </div>
@@ -59,6 +67,8 @@
             <h2><a>その他</a></h2>
         </div>
     </header>
+
+    <h1 class="title" id="heading">情報</h1>
 </body>
 
 </html>
