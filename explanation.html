@@ -3,11 +3,26 @@
 
 <head>
     <style>
+        html {
+            height: 100%;
+        }
+
+        /* body */
+        body {
+            margin: 0px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         /* header */
         header {
+            width: 100%;
+            color: black;
             display: flex;
             align-items: center;
-            border-bottom: 0.5px solid gray;
+            border-bottom: 4px solid rgb(32, 17, 95);
         }
 
         .title {
@@ -47,6 +62,16 @@
             margin: 10px 0px 0px 20px;
         }
 
+        #bigmain {
+            width: 90%;
+            flex: 1;
+            background-image: url(backgroundimg.png);
+            background-size: 100% 100%;
+            background-position: center;
+            overflow: hidden;
+            background-repeat: no-repeat;
+        }
+
         main {
             display: flex;
             flex-direction: column;
@@ -59,6 +84,17 @@
 
         .explanation {
             width: 500px;
+        }
+
+        /* footer */
+        footer {
+            width: 100%;
+            height: 30px;
+            background-color: rgb(32, 17, 95);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
     <title>自主学習</title>
@@ -82,28 +118,34 @@
         </div>
     </header>
 
-    <h1 class="title" id="heading">説明</h1>
+    <div id="bigmain">
+        <h1 class="title" id="heading">説明</h1>
 
-    <main>
-        <h2 class="heading2">このサイトの説明<br></h2>
-        <p class="explanation">
-            自主学習のために作ったサイトをまとめました。<br>
-            ホームと書かれているところでサイトのリンク集のページに行けます。<br>
-        </p>
-        <h2 class="heading2">百ます計算の説明</h2>
-        <p class="explanation">
-            百ます計算を作りました。<br>
-            詳しくはサイトを見ればわかります。<br>
-            ルールは「百ます計算 ルール」のように検索すれば出てきます。
-        </p>
-        <h2 class="heading2">
-            グラフ生成の説明
-        </h2>
-        <p class="explanation">
-            グラフ生成サイトを作りました。<br>
-            詳しくはサイトを見ればわかります。
-        </p>
-    </main>
+        <main>
+            <h2 class="heading2">このサイトの説明<br></h2>
+            <p class="explanation">
+                自主学習のために作ったサイトをまとめました。<br>
+                ホームと書かれているところでサイトのリンク集のページに行けます。<br>
+            </p>
+            <h2 class="heading2">百ます計算の説明</h2>
+            <p class="explanation">
+                百ます計算を作りました。<br>
+                詳しくはサイトを見ればわかります。<br>
+                ルールは「百ます計算 ルール」のように検索すれば出てきます。
+            </p>
+            <h2 class="heading2">
+                グラフ生成の説明
+            </h2>
+            <p class="explanation">
+                グラフ生成サイトを作りました。<br>
+                詳しくはサイトを見ればわかります。
+            </p>
+        </main>
+    </div>
+
+    <footer>
+        © asakei968. All Rights Reserved.
+    </footer>
 </body>
 
 </html>
