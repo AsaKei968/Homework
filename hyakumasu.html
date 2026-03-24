@@ -2,38 +2,7 @@
 <html>
 
 <head>
-    <title>百ます計算</title>
     <style>
-        /* header */
-        header {
-            display: flex;
-            align-items: center;
-            border-bottom: 0.5px solid gray;
-        }
-
-        #title {
-            margin-left: 20px;
-        }
-
-        .headers {
-            width: 100px;
-            height: 100px;
-            display: flex;
-            justify-content: center;
-        }
-
-        #headerMostLeft {
-            margin-left: auto;
-        }
-
-        #headerMostRight {
-            margin-right: 80px;
-        }
-
-        div.headers:not(#headerMostLeft) {
-            margin-left: 40px;
-        }
-
         main {
             display: flex;
         }
@@ -84,17 +53,30 @@
             flex-direction: column;
         }
 
+        #type {
+            height: 80px;
+        }
+
+        #make {
+            height: 80px;
+        }
+
         button,
-        select {
-            margin-right: 50px;
+        #type {
             font-size: 30px;
         }
+
+        button:not(#make) {
+            margin-right: 50px;
+        }
     </style>
+    <link rel="stylesheet" href="css/all.css">
+    <title>百ます計算</title>
 </head>
 
 <body onload="make()">
     <header>
-        <h1 id="title">百ます計算</h1>
+        <h1 class="title">百ます計算</h1>
         <div id="headerMostLeft" class="headers" style="width: 400px;">
             <select id="type">
                 <option value="int">整数(1桁) × 整数(1桁)</option>

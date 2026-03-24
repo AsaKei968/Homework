@@ -2,11 +2,10 @@
 <html>
 
 <head>
-    <title>グラフ生成</title>
-
     <style>
         #graph {
             display: flex;
+            position: relative;
         }
 
         #manual p {
@@ -29,6 +28,8 @@
             display: flex;
         }
     </style>
+    <link rel="stylesheet" href="all.css">
+    <title>グラフ生成</title>
 </head>
 
 <body>
@@ -104,7 +105,7 @@
             // グラフの内容の色のところのselect
             let elemColorSelect = document.createElement("select");
             elemColorSelect.id = numOfElem + "Color";
-            elemColor.forEach(function(color){
+            elemColor.forEach(function (color) {
                 let option = document.createElement("option");
                 option.value = color[1];
                 option.textContent = color[0];
@@ -169,11 +170,16 @@
             else if (document.getElementById("graphType").value == "band") {
                 graph.style = "width:1000px;height:100px;margin-top:20px;border:1px solid black;";
 
+                for (let i = 1; i < 100; i++) {
+                    let layer = document.createElement("div");
+                    layer.style = `width:1px;height:${i % 5 == 0 ? i % 10 == 0 ? 12.5 : 7.5 : 5}px;background-color:black;left:${i / 100 * 1000}px;position:absolute;z-index:1;`;
+                    graph.appendChild(layer);
+                }
                 for (let i = 1; i < numOfElem + 1; i++) {
                     let color = document.getElementById(`${i}Color`).value;
                     let width = document.getElementById(`${i}Number`).value / sumOfelem * graph.offsetWidth;
                     let graphelem = document.createElement("div");
-                    graphelem.style = `width:${width}px;height:100px;border:1px solid black;display:flex;justify-content:center;align-items:center;background-color:${color}`;
+                    graphelem.style = `width:${width}px;height:100px;border:1px solid black;display:flex;justify-content:center;align-items:center;background-color:${color};`;
                     graph.appendChild(graphelem);
                     let graphelemText = document.createElement("p");
                     graphelemText.textContent = document.getElementById(i).value;
@@ -186,6 +192,7 @@
         function removeelem() {
             document.getElementById(numOfElem + "elemDiv").remove();
             document.getElementById(numOfElem + "elemNumberDiv").remove();
+            document.getElementById(numOfElem + "elemColorDiv").remove();
             numOfElem--;
         }
         document.getElementById("removeelem").addEventListener("click", removeelem);
