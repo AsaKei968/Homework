@@ -54,7 +54,7 @@ div.headers:not(#headerMostLeft) {
 #bigmain {
     width: 90%;
     flex: 1;
-    background-image: url(backgroundimg.png);
+    background-image: url(img/backgroundimg.png);
     background-size: 100% 100%;
     background-position: center;
     overflow: hidden;
