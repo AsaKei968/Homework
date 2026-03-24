@@ -1,0 +1,9 @@
+.headers {
+    border: 0.3px solid #d3d3d3;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.headers:hover {
+    background-color: #d3d3d3;
+}
